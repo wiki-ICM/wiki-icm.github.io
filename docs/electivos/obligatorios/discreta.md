@@ -3,5 +3,5 @@
 
 ## **:material-school: Listado de Asignaturas**
 
-[:material-graph: Teoria de Grafos](https://github.com/wiki-ICM/wiki-ICM/tree/main/Electivos/Electivos%20Obligatorios%20de%20la%20Orientaci%C3%B3n/Matem%C3%A1ticas%20discretas/Teor%C3%ADa%20de%20grafos%20(525141)){ .md-button }
-[:material-plus-minus: Algoritmos de Aproximacion Heuristica](https://github.com/wiki-ICM/wiki-ICM/tree/main/Electivos/Electivos%20Obligatorios%20de%20la%20Orientaci%C3%B3n/Matem%C3%A1ticas%20discretas/Algoritmos%20de%20aproximaci%C3%B3n%20heur%C3%ADstica%20y%20aplicaciones%20(525501)){ .md-button }
+[:material-graph: Teoria de Grafos](https://drive.google.com/drive/folders/1_qRBr8ZozNnOuZqZRnW0GWa23MSs_zba?usp=sharing){ .md-button }
+[:material-plus-minus: Algoritmos de Aproximacion Heuristica](https://drive.google.com/drive/folders/1l00Ov2fuCs_s75Cm7A__578wrp6dJvJv?usp=sharing){ .md-button }
