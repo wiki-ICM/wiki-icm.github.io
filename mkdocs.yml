@@ -62,4 +62,4 @@ plugins:
   - social:
       cards_layout_options:
         background_color: "#ff1493"
-        logo: assets/logof.png
+        
