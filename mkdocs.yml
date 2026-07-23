@@ -30,10 +30,6 @@ nav:
   - Otros: ot.md
   
 
-
-
-
-
 theme: 
   name: material
   logo: assets/logof.png
@@ -66,4 +62,4 @@ plugins:
   - social:
       cards_layout_options:
         background_color: "#ff1493"
-        logo: site/assets/logo.png
+        logo: assets/logof.png
