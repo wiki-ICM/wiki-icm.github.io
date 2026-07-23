@@ -1,5 +1,5 @@
 site_name: wiki-ICM
-site_description: mario jaque
+site_description: Material de estudio para la carrera de Ingeneria Civil Matematica.
 site_url: https://wiki-icm.github.io/
 
 
@@ -62,3 +62,7 @@ plugins:
       min_length: 50
       max_length: 160
       trim: true
+      fallback_if_short: true
+  -cards:
+    background_color: "#1a1a1a"
+    text_color: "#ffffff"
