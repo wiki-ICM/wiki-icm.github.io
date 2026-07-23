@@ -62,5 +62,5 @@ plugins:
       fallback_if_short: true
   - social:
       cards_layout_options:
-        background_color: "#d1ddff"
+        background_color: "#a2b8fc"
         
