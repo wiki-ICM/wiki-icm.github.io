@@ -19,7 +19,7 @@ Los recursos están organizados siguiendo la malla curricular de la carrera:
 
 ---
 
-## 🤝 ¿Cómo puedo ser parte?
+<!-- ## 🤝 ¿Cómo puedo ser parte?
 
 
 
@@ -28,7 +28,7 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
 * :material-email: [jjunemann2024@udec.cl](mailto:jjunemann2024@udec.cl)
 * :material-email: [bsandoval2018@udec.cl](mailto:bsandoval2018@udec.cl)
 * :material-email: [pnahuelquin2024@udec.cl](mailto:pnahuelquin2024@udec.cl)
-* :material-email: [femunoz2022@udec.cl](mailto:femunoz2022@udec.cl) 
+* :material-email: [femunoz2022@udec.cl](mailto:femunoz2022@udec.cl) -->
 
 
 
