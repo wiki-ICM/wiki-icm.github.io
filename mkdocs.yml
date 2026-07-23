@@ -63,3 +63,7 @@ plugins:
       max_length: 160
       trim: true
       fallback_if_short: true
+  - social:
+      cards_layout_options:
+        background_color: "#ff1493"
+        logo: site/assets/logo.png
