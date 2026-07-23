@@ -55,6 +55,9 @@ markdown_extensions:
 
 plugins:
   - search
+  - htmlproofer:
+      raise_error: true
+      validate_external_urls: true
   - meta-descriptions:
       min_length: 50
       max_length: 160
