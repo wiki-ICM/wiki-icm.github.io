@@ -33,6 +33,7 @@ nav:
 theme: 
   name: material
   logo: assets/logof.png
+  favicon: assets/logof.png
   features:
     - navigation.instant.preview
     - navigation.instant
@@ -61,5 +62,5 @@ plugins:
       fallback_if_short: true
   - social:
       cards_layout_options:
-        background_color: "#ff1493"
+        background_color: "#d1ddff"
         
