@@ -63,6 +63,6 @@ plugins:
       max_length: 160
       trim: true
       fallback_if_short: true
-  -cards:
+  - cards:
     background_color: "#1a1a1a"
     text_color: "#ffffff"
