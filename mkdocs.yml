@@ -57,4 +57,7 @@ markdown_extensions:
 
 pluggins:
   - search
-  - meta-description
+  - meta-descriptions:
+      min_length: 50
+      max_length: 160
+      trim: true
