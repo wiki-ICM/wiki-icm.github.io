@@ -1261,8 +1261,6 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
   const inputAnoMaterial = document.getElementById('input-ano-material');
   const inputArchivo = document.getElementById('input-archivo');
 
-  // AQUÍ ESTÁ LA MAGIA: El diccionario de ramos por año. 
-  // Edita esto con la malla de tu carrera para agregar o quitar los que necesites.
   const ramosPorAno = {
     "1er Año": ["Calculo I","Calculo II","Algebra I","Algebra II","Fisica I","Fisica II","Quimica I","Quimica II","TRM I","Introduccion a la Innovacion"],
     "2do Año": ["Algebra III","Calculo III","Calculo IV","EDO","Programacion","ED2","Termodinamica"],
@@ -1289,7 +1287,6 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
         selectRamo.appendChild(opcion);
       });
     } else {
-      // Si vuelven a poner "Selecciona...", bloqueamos de nuevo
       selectRamo.disabled = true;
       selectRamo.innerHTML = '<option value="">Primero elige un año...</option>';
     }
@@ -1323,7 +1320,7 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
 
     // Ahora validamos con selectRamo en vez del input de texto
     if (!selectAno.value || !selectRamo.value || !inputAnoMaterial.value) {
-      zonaArrastre.innerHTML = '<strong style="color: red;">¡Oye! Faltan datos por llenar arriba.</strong>';
+      zonaArrastre.innerHTML = '<strong style="color: red;"> Faltan datos por llenar.</strong>';
       setTimeout(() => resetZona(), 3500);
       return;
     }
@@ -1334,7 +1331,7 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
       return;
     }
 
-    zonaArrastre.innerHTML = '<strong>Subiendo archivo... aguanta un rato.</strong>';
+    zonaArrastre.innerHTML = '<strong>Subiendo archivo...</strong>';
 
     const reader = new FileReader();
     reader.onload = function(event) {
@@ -1356,7 +1353,7 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
         body: formData,
         mode: 'no-cors'
       }).then(() => {
-        zonaArrastre.innerHTML = '<strong style="color: green;">¡Archivo subido al tiro! Gracias por apañar.</strong>';
+        zonaArrastre.innerHTML = '<strong style="color: green;">¡Archivo subido.</strong>';
 
         // Reseteamos todo para el siguiente archivo
         selectAno.value = ''; 
@@ -1366,7 +1363,7 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
 
         setTimeout(() => resetZona(), 3500);
       }).catch(error => {
-        zonaArrastre.innerHTML = '<strong style="color: red;">Chuta, hubo un error. Intenta de nuevo.</strong>';
+        zonaArrastre.innerHTML = '<strong style="color: red;">Hubo un error. Intenta de nuevo.</strong>';
       });
     };
 
