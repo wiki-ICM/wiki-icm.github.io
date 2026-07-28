@@ -1226,80 +1226,72 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
 
 <h2 id="aportes">Aportes</h2>
 <div style="margin-bottom: 15px; text-align: center;">
-  <label for="select-ano"><strong>Año:</strong></label>
+  <label for="select-ano"><strong>Año Carrera:</strong></label>
   <select id="select-ano" style="padding: 5px; margin-right: 15px; border-radius: 5px;">
-    <option value="">Seleccione un año...</option>
+    <option value="">Selecciona...</option>
     <option value="1er Año">1er Año</option>
     <option value="2do Año">2do Año</option>
     <option value="3er Año">3er Año</option>
     <option value="4to Año">4to Año</option>
     <option value="5to Año">5to Año</option>
     <option value="6to Año">6to Año</option>
-    <option value="Electivos">Electivos</option>
     <option value="Otro">Otro / General</option>
   </select>
 
   <label for="select-ramo"><strong>Ramo:</strong></label>
-  <select id="select-ramo" style="padding: 5px; border-radius: 5px; width: 200px;" disabled>
-    <option value="">Seleccione un ramo...</option>
+  <!-- Partimos con el selector bloqueado hasta que elijan un año -->
+  <select id="select-ramo" style="padding: 5px; border-radius: 5px; width: 150px; margin-right: 15px;" disabled>
+    <option value="">Primero elige un año...</option>
   </select>
+
+  <label for="input-ano-material"><strong>Año Material:</strong></label>
+  <input type="number" id="input-ano-material" placeholder="Ej: 2025" style="padding: 5px; border-radius: 5px; width: 90px;">
 </div>
 
-<!-- Zona de arrastre que ahora también es clickeable -->
-<div id="zona-arrastre" style="border: 3px dashed #4051b5; border-radius: 10px; padding: 60px; text-align: center; background-color: rgba(64, 81, 181, 0.05); margin: 20px 0; cursor: pointer;">
-  <strong>Arrastre el material nuevo aquí o haga clic para seleccionar un archivo</strong><br>
-  <span style="font-size: 0.9em; color: #666;">(Asegúrese de seleccionar el Año y el Ramo previamente)</span>
+<div id="zona-arrastre" onclick="document.getElementById('input-archivo').click();" style="border: 3px dashed #4051b5; border-radius: 10px; padding: 60px; text-align: center; background-color: rgba(64, 81, 181, 0.05); margin: 20px 0; cursor: pointer;">
+  <strong>Arrastra el material nuevo aquí o haz clic para buscarlo</strong><br>
+  <span style="font-size: 0.9em; color: #666;">(Llena todos los datos arriba primero)</span>
 </div>
 
-<!-- Input oculto para abrir el explorador de archivos -->
 <p><input type="file" id="input-archivo" style="display: none;"></p>
 <script>
-  // DICCIONARIO DE RAMOS: Modifica esta lista con los ramos reales
-  const ramosPorAno = {
-    "1er Año": ["Álgebra I", "Cálculo I", "Física I", "Quimica I","TRM I"],
-    "2do Año": ["Calculo III", "EDO", "Algebra III","Calculo IV"],
-    "3er Año": ["Optimizacion I", "Analisis Real I", "Analisis Real 2","a"],
-    "4to Año": ["test", "aa"],
-    "5to Año": ["test", "Economía"],
-    "6to Año": ["test", ""],
-    "Electivos": ["test", "test", "test"],
-    "Otro": ["test", "test"]
-  };
-
   const zonaArrastre = document.getElementById('zona-arrastre');
   const selectAno = document.getElementById('select-ano');
   const selectRamo = document.getElementById('select-ramo');
+  const inputAnoMaterial = document.getElementById('input-ano-material');
   const inputArchivo = document.getElementById('input-archivo');
 
-  // Lógica de los menús desplegables
-  selectAno.addEventListener('change', function() {
-    const añoSeleccionado = this.value;
-    selectRamo.innerHTML = '<option value="">Seleccione un ramo...</option>';
+  // AQUÍ ESTÁ LA MAGIA: El diccionario de ramos por año. 
+  // Edita esto con la malla de tu carrera para agregar o quitar los que necesites.
+  const ramosPorAno = {
+    "1er Año": ["Calculo I","Calculo II","Algebra I","Algebra II","Fisica I","Fisica II","Quimica I","Quimica II","TRM I","Introduccion a la Innovacion"],
+    "2do Año": ["Algebra III","Calculo III","Calculo IV","EDO","Programacion","ED2","Termodinamica"],
+    "3er Año": ["CÁLCULO III", "ÁLGEBRA ABSTRACTA", "PROBABILIDADES", "ANÁLISIS NUMÉRICO"],
+    "4to Año": ["GEOMETRÍA ALGEBRAICA", "ANÁLISIS REAL", "OPTIMIZACIÓN"],
+    "5to Año": ["TEORÍA DE GALOIS", "ANÁLISIS COMPLEJO", "TEORÍA DE NÚMEROS"],
+    "6to Año": ["PROYECTO DE TÍTULO", "ELECTIVO I", "ELECTIVO II"],
+    "Otro": ["MATERIAL GENERAL", "TALLERES", "OTROS"]
+  };
 
-    if (añoSeleccionado && ramosPorAno[añoSeleccionado]) {
-      ramosPorAno[añoSeleccionado].forEach(ramo => {
-        const option = document.createElement('option');
-        option.value = ramo;
-        option.textContent = ramo;
-        selectRamo.appendChild(option);
+  // Evento que actualiza la lista de ramos cuando cambian el año
+  selectAno.addEventListener('change', (e) => {
+    const anoSeleccionado = e.target.value;
+
+    // Limpiamos la lista de ramos
+    selectRamo.innerHTML = '<option value="">Selecciona ramo...</option>';
+
+    if (anoSeleccionado && ramosPorAno[anoSeleccionado]) {
+      selectRamo.disabled = false; // Desbloqueamos el selector
+      ramosPorAno[anoSeleccionado].forEach(ramo => {
+        const opcion = document.createElement('option');
+        opcion.value = ramo;
+        opcion.textContent = ramo;
+        selectRamo.appendChild(opcion);
       });
-      selectRamo.disabled = false;
     } else {
+      // Si vuelven a poner "Selecciona...", bloqueamos de nuevo
       selectRamo.disabled = true;
-    }
-  });
-
-  // --- EVENTOS DE LA ZONA DE ARRASTRE Y CLIC ---
-
-  // Abrir ventana de archivos al hacer clic en la zona
-  zonaArrastre.addEventListener('click', () => {
-    inputArchivo.click();
-  });
-
-  // Capturar el archivo si lo seleccionan con la ventana
-  inputArchivo.addEventListener('change', (e) => {
-    if (e.target.files.length > 0) {
-      procesarArchivo(e.target.files[0]);
+      selectRamo.innerHTML = '<option value="">Primero elige un año...</option>';
     }
   });
 
@@ -1312,28 +1304,37 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
     zonaArrastre.style.backgroundColor = 'rgba(64, 81, 181, 0.05)';
   });
 
-  // Capturar el archivo si lo arrastran
   zonaArrastre.addEventListener('drop', (e) => {
     e.preventDefault();
     zonaArrastre.style.backgroundColor = 'rgba(64, 81, 181, 0.05)';
-
-    if (e.dataTransfer.files.length > 0) {
-      procesarArchivo(e.dataTransfer.files[0]);
-    }
+    const file = e.dataTransfer.files[0];
+    if (file) procesarArchivo(file);
   });
 
-  // --- LÓGICA PRINCIPAL DE SUBIDA ---
+  inputArchivo.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) procesarArchivo(file);
+    inputArchivo.value = ''; 
+  });
+
   function procesarArchivo(file) {
-    if (!selectAno.value || !selectRamo.value) {
-      zonaArrastre.innerHTML = '<strong style="color: red;">Error: Por favor, seleccione el Año y el Ramo antes de subir el archivo.</strong>';
-      setTimeout(() => {
-        zonaArrastre.innerHTML = '<strong>Arrastre el material nuevo aquí o haga clic para seleccionar un archivo</strong><br><span style="font-size: 0.9em; color: #666;">(Asegúrese de seleccionar el Año y el Ramo previamente)</span>';
-      }, 4000);
-      inputArchivo.value = ''; // Limpiar input
+    const anoMatValue = parseInt(inputAnoMaterial.value);
+    const anoActual = new Date().getFullYear();
+
+    // Ahora validamos con selectRamo en vez del input de texto
+    if (!selectAno.value || !selectRamo.value || !inputAnoMaterial.value) {
+      zonaArrastre.innerHTML = '<strong style="color: red;">¡Oye! Faltan datos por llenar arriba.</strong>';
+      setTimeout(() => resetZona(), 3500);
       return;
     }
 
-    zonaArrastre.innerHTML = '<strong>Subiendo archivo, por favor espere...</strong>';
+    if (anoMatValue < 2010 || anoMatValue > anoActual) {
+      zonaArrastre.innerHTML = '<strong style="color: red;">El año del material debe ser entre 2010 y ' + anoActual + '.</strong>';
+      setTimeout(() => resetZona(), 4000);
+      return;
+    }
+
+    zonaArrastre.innerHTML = '<strong>Subiendo archivo... aguanta un rato.</strong>';
 
     const reader = new FileReader();
     reader.onload = function(event) {
@@ -1345,31 +1346,35 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
       formData.append('fileData', base64Data);
       formData.append('ano', selectAno.value);
       formData.append('ramo', selectRamo.value);
+      formData.append('anoMaterial', anoMatValue.toString());
 
-      // ¡RECUERDA PONER TU URL DE APPS SCRIPT AQUÍ!
-      const scriptURL = 'https://script.google.com/macros/s/AKfycbz4KPGgJ_IwS0UCFn6_JtEkMBSrR7lAvwxw8NzIlhEQAw2T7tsPABaQtdNunOXyToy5BQ/exec';
+      // ¡RECUERDA PONER TU URL ACÁ!
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbxAnaYDfZ3435EV632hUkHend8cIILkETye9-Vol_wKt1sWTzEC2OLZeS6nGxBSoPLKmg/exec';
 
       fetch(scriptURL, {
         method: 'POST',
         body: formData,
         mode: 'no-cors'
       }).then(() => {
-        zonaArrastre.innerHTML = '<strong style="color: green;">Archivo subido exitosamente. Gracias por su contribución.</strong>';
-        selectAno.value = ''; 
-        selectRamo.innerHTML = '<option value="">Seleccione un ramo...</option>';
-        selectRamo.disabled = true;
-        inputArchivo.value = ''; // Limpiar input para futuras subidas
+        zonaArrastre.innerHTML = '<strong style="color: green;">¡Archivo subido al tiro! Gracias por apañar.</strong>';
 
-        setTimeout(() => {
-          zonaArrastre.innerHTML = '<strong>Arrastre el material nuevo aquí o haga clic para seleccionar un archivo</strong><br><span style="font-size: 0.9em; color: #666;">(Asegúrese de seleccionar el Año y el Ramo previamente)</span>';
-        }, 4000);
+        // Reseteamos todo para el siguiente archivo
+        selectAno.value = ''; 
+        selectRamo.innerHTML = '<option value="">Primero elige un año...</option>';
+        selectRamo.disabled = true;
+        inputAnoMaterial.value = '';
+
+        setTimeout(() => resetZona(), 3500);
       }).catch(error => {
-        zonaArrastre.innerHTML = '<strong style="color: red;">Ha ocurrido un error durante la subida. Por favor, intente nuevamente.</strong>';
-        inputArchivo.value = '';
+        zonaArrastre.innerHTML = '<strong style="color: red;">Chuta, hubo un error. Intenta de nuevo.</strong>';
       });
     };
 
     reader.readAsDataURL(file);
+  }
+
+  function resetZona() {
+    zonaArrastre.innerHTML = '<strong>Arrastra el material nuevo aquí o haz clic para buscarlo</strong><br><span style="font-size: 0.9em; color: #666;">(Llena todos los datos arriba primero)</span>';
   }
 </script>
 
