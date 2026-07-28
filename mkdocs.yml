@@ -5,7 +5,6 @@ site_url: https://wiki-icm.github.io/
 
 nav:
   - Home: index.md
-  - Aportes: aportes.md
   - Primer Año :
       - Malla 2021: a121.md
       - Malla 2025: a125.md

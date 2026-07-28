@@ -7,11 +7,12 @@
     <option value="3er Año">3er Año</option>
     <option value="4to Año">4to Año</option>
     <option value="5to Año">5to Año</option>
-    <option value="Otro">Otro / General</option>
+    <option value="Electivo"> Electivos </option>
+    <option value="Otro">Otro </option>
   </select>
 
   <label for="input-ramo"><strong>Ramo:</strong></label>
-  <input type="text" id="input-ramo" placeholder="Ej: Álgebra, Cálculo..." style="padding: 5px; border-radius: 5px; width: 200px;">
+  <input type="text" id="input-ramo" placeholder="Ej: Álgebra 1, Cálculo 1..." style="padding: 5px; border-radius: 5px; width: 200px;">
 </div>
 
 <div id="zona-arrastre" style="border: 3px dashed #4051b5; border-radius: 10px; padding: 60px; text-align: center; background-color: rgba(64, 81, 181, 0.05); margin: 20px 0; cursor: pointer;">
@@ -40,16 +41,15 @@
     const file = e.dataTransfer.files[0];
     if (!file) return;
 
-    // Validación para que no suban hueás sin etiquetar
     if (!selectAno.value || !inputRamo.value.trim()) {
-      zonaArrastre.innerHTML = '<strong style="color: red;">¡Oye! Llena el Año y el Ramo primero.</strong>';
+      zonaArrastre.innerHTML = '<strong style="color: red;">Llena el Año y el Ramo primero.</strong>';
       setTimeout(() => {
         zonaArrastre.innerHTML = '<strong>Arrastra el material nuevo aquí</strong><br><span style="font-size: 0.9em; color: #666;">(Asegúrate de poner el Año y el Ramo arriba primero)</span>';
       }, 3500);
       return;
     }
 
-    zonaArrastre.innerHTML = '<strong>Subiendo archivo... aguanta un rato.</strong>';
+    zonaArrastre.innerHTML = '<strong>Subiendo archivo...</strong>';
 
     const reader = new FileReader();
     reader.onload = function(event) {
@@ -69,14 +69,14 @@
         body: formData,
         mode: 'no-cors'
       }).then(() => {
-        zonaArrastre.innerHTML = '<strong style="color: green;">¡Archivo subido al tiro! Gracias por apañar.</strong>';
+        zonaArrastre.innerHTML = '<strong style="color: green;">Archivo subido.</strong>';
         selectAno.value = ''; 
         inputRamo.value = '';
         setTimeout(() => {
           zonaArrastre.innerHTML = '<strong>Arrastra más material aquí</strong>';
         }, 3500);
       }).catch(error => {
-        zonaArrastre.innerHTML = '<strong style="color: red;">Chuta, hubo un error. Intenta de nuevo.</strong>';
+        zonaArrastre.innerHTML = '<strong style="color: red;">Hubo un error. Intenta de nuevo.</strong>';
       });
     };
     
