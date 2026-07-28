@@ -19,6 +19,10 @@ Los recursos están organizados siguiendo la malla curricular de la carrera:
 
 ---
 
+
+
+
+
 <!-- ## 🤝 ¿Cómo puedo ser parte?
 
 
