@@ -4,8 +4,75 @@
   <img src="assets/imagen.png" alt="Logo Wiki-ICM" width="400">
 </p>
 
+<style>
+  /* Estilos para embellecer y hacer responsiva la interfaz */
+  .bienvenida-icm {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+    font-size: 1.1em;
+    color: #444;
+  }
+  .form-aportes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 30px;
+  }
+  .campo-aporte {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    min-width: 200px;
+    flex: 1;
+    max-width: 250px;
+  }
+  .campo-aporte label {
+    font-weight: 600;
+    font-size: 0.9em;
+    color: #333;
+    margin-bottom: 6px;
+  }
+  .campo-aporte select, .campo-aporte input {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    background-color: #fff;
+    transition: all 0.3s ease;
+  }
+  .campo-aporte select:focus, .campo-aporte input:focus {
+    border-color: #4051b5;
+    outline: none;
+    box-shadow: 0 0 8px rgba(64, 81, 181, 0.3);
+  }
+  #zona-arrastre {
+    border: 3px dashed #4051b5; 
+    border-radius: 12px; 
+    padding: 50px 20px; 
+    text-align: center; 
+    background-color: rgba(64, 81, 181, 0.03); 
+    margin: 20px auto; 
+    cursor: pointer; 
+    max-width: 700px;
+    transition: all 0.3s ease;
+  }
+  #zona-arrastre:hover {
+    background-color: rgba(64, 81, 181, 0.08);
+  }
+  .icono-subida {
+    width: 48px; 
+    height: 48px; 
+    color: #4051b5; 
+    margin-bottom: 10px;
+  }
+</style>
 
-Bienvenido a **Wiki-ICM**, un proyecto que busca recopilar apuntes, listados y material de la carrera **Ingeniería Civil Matemática UdeC**.
+<div class="bienvenida-icm">
+  Bienvenido a <strong>Wiki-ICM</strong>, un proyecto que busca recopilar apuntes, listados y material de la carrera <strong>Ingeniería Civil Matemática UdeC</strong>.
+</div>
 
 <!--
 ---
@@ -29,30 +96,38 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
 
 ## Aportes 
 
-<div style="margin-bottom: 15px; text-align: center;">
-  <label for="select-ano"><strong>Año Carrera:</strong></label>
-  <select id="select-ano" style="padding: 5px; margin-right: 15px; border-radius: 5px;">
-    <option value="">Selecciona...</option>
-    <option value="1er Año">1er Año</option>
-    <option value="2do Año">2do Año</option>
-    <option value="3er Año">3er Año</option>
-    <option value="4to Año">4to Año</option>
-    <option value="5to Año">5to Año</option>
-    <option value="6to Año">6to Año</option>
-    <option value="Otro">Otro / General</option>
-  </select>
+<div class="form-aportes">
+  <div class="campo-aporte">
+    <label for="select-ano">Año Carrera:</label>
+    <select id="select-ano">
+      <option value="">Selecciona...</option>
+      <option value="1er Año">1er Año</option>
+      <option value="2do Año">2do Año</option>
+      <option value="3er Año">3er Año</option>
+      <option value="4to Año">4to Año</option>
+      <option value="5to Año">5to Año</option>
+      <option value="6to Año">6to Año</option>
+      <option value="Electivos">Electivos</option>
+      <option value="Otros">Otros</option>
+    </select>
+  </div>
 
-  <label for="select-ramo"><strong>Ramo:</strong></label>
-  <!-- Partimos con el selector bloqueado hasta que elijan un año -->
-  <select id="select-ramo" style="padding: 5px; border-radius: 5px; width: 150px; margin-right: 15px;" disabled>
-    <option value="">Primero elige un año...</option>
-  </select>
+  <div class="campo-aporte">
+    <label for="select-ramo">Ramo:</label>
+    <select id="select-ramo" disabled>
+      <option value="">Primero elige un año...</option>
+    </select>
+  </div>
 
-  <label for="input-ano-material"><strong>Año Material:</strong></label>
-  <input type="number" id="input-ano-material" placeholder="Ej: 2025" style="padding: 5px; border-radius: 5px; width: 90px;">
+  <div class="campo-aporte">
+    <label for="input-ano-material">Año Material:</label>
+    <input type="number" id="input-ano-material" placeholder="Ej: 2024">
+  </div>
 </div>
 
-<div id="zona-arrastre" onclick="document.getElementById('input-archivo').click();" style="border: 3px dashed #4051b5; border-radius: 10px; padding: 60px; text-align: center; background-color: rgba(64, 81, 181, 0.05); margin: 20px 0; cursor: pointer;">
+<div id="zona-arrastre" onclick="document.getElementById('input-archivo').click();">
+  <!-- Ícono de subida en formato SVG para que cargue rapidísimo -->
+  <svg class="icono-subida" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg><br>
   <strong>Arrastra el material nuevo aquí o haz clic para buscarlo</strong><br>
   <span style="font-size: 0.9em; color: #666;">(Llena todos los datos arriba primero)</span>
 </div>
@@ -66,6 +141,10 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
   const inputAnoMaterial = document.getElementById('input-ano-material');
   const inputArchivo = document.getElementById('input-archivo');
   
+  // Seteamos el año actual y actualizamos el placeholder para que se vea dinámico
+  const anoActual = new Date().getFullYear();
+  inputAnoMaterial.placeholder = "Ej: " + anoActual;
+  
   const ramosPorAno = {
     "1er Año": ["Calculo I","Calculo II","Algebra I","Algebra II","Fisica I","Fisica II","Quimica I","Quimica II","TRM I","Introduccion a la Innovacion"],
     "2do Año": ["Algebra III","Calculo III","Calculo IV","EDO","Programacion","ED2","Termodinamica"],
@@ -77,15 +156,13 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
     "Otros": ["Ramos LM","Ramos INF","Extra"]
   };
 
-  // Evento que actualiza la lista de ramos cuando cambian el año
   selectAno.addEventListener('change', (e) => {
     const anoSeleccionado = e.target.value;
     
-    // Limpiamos la lista de ramos
     selectRamo.innerHTML = '<option value="">Selecciona ramo...</option>';
 
     if (anoSeleccionado && ramosPorAno[anoSeleccionado]) {
-      selectRamo.disabled = false; // Desbloqueamos el selector
+      selectRamo.disabled = false;
       ramosPorAno[anoSeleccionado].forEach(ramo => {
         const opcion = document.createElement('option');
         opcion.value = ramo;
@@ -100,16 +177,16 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
 
   zonaArrastre.addEventListener('dragover', (e) => {
     e.preventDefault();
-    zonaArrastre.style.backgroundColor = 'rgba(64, 81, 181, 0.2)';
+    zonaArrastre.style.backgroundColor = 'rgba(64, 81, 181, 0.15)';
   });
 
   zonaArrastre.addEventListener('dragleave', () => {
-    zonaArrastre.style.backgroundColor = 'rgba(64, 81, 181, 0.05)';
+    zonaArrastre.style.backgroundColor = 'rgba(64, 81, 181, 0.03)';
   });
 
   zonaArrastre.addEventListener('drop', (e) => {
     e.preventDefault();
-    zonaArrastre.style.backgroundColor = 'rgba(64, 81, 181, 0.05)';
+    zonaArrastre.style.backgroundColor = 'rgba(64, 81, 181, 0.03)';
     const file = e.dataTransfer.files[0];
     if (file) procesarArchivo(file);
   });
@@ -122,22 +199,20 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
 
   function procesarArchivo(file) {
     const anoMatValue = parseInt(inputAnoMaterial.value);
-    const anoActual = new Date().getFullYear();
 
-    // Ahora validamos con selectRamo en vez del input de texto
     if (!selectAno.value || !selectRamo.value || !inputAnoMaterial.value) {
-      zonaArrastre.innerHTML = '<strong style="color: red;"> Faltan datos por llenar.</strong>';
+      zonaArrastre.innerHTML = '<strong style="color: #d32f2f;">Faltan datos por llenar.</strong>';
       setTimeout(() => resetZona(), 3500);
       return;
     }
 
     if (anoMatValue < 2010 || anoMatValue > anoActual) {
-      zonaArrastre.innerHTML = '<strong style="color: red;">El año del material debe ser entre 2010 y ' + anoActual + '.</strong>';
+      zonaArrastre.innerHTML = '<strong style="color: #d32f2f;">El año del material debe ser entre 2010 y ' + anoActual + '.</strong>';
       setTimeout(() => resetZona(), 4000);
       return;
     }
 
-    zonaArrastre.innerHTML = '<strong>Subiendo archivo...</strong>';
+    zonaArrastre.innerHTML = '<svg class="icono-subida" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg><br><strong>Subiendo archivo... aguanta un poco.</strong>';
 
     const reader = new FileReader();
     reader.onload = function(event) {
@@ -151,7 +226,6 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
       formData.append('ramo', selectRamo.value);
       formData.append('anoMaterial', anoMatValue.toString());
 
-      // ¡RECUERDA PONER TU URL ACÁ!
       const scriptURL = 'https://script.google.com/macros/s/AKfycbysVOvQhQe6XaAUCVJXImhsEdQlHfxOcZyj127yYlxI_vMX4MKCEsiNLNf79HawwZ6eNg/exec';
 
       fetch(scriptURL, {
@@ -159,17 +233,17 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
         body: formData,
         mode: 'no-cors'
       }).then(() => {
-        zonaArrastre.innerHTML = '<strong style="color: green;">Archivo subido.</strong>';
+        zonaArrastre.innerHTML = '<svg class="icono-subida" style="color: #388e3c;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><br><strong style="color: #388e3c;">¡Archivo subido exitosamente!</strong>';
         
-        // Reseteamos todo para el siguiente archivo
         selectAno.value = ''; 
         selectRamo.innerHTML = '<option value="">Primero elige un año...</option>';
         selectRamo.disabled = true;
         inputAnoMaterial.value = '';
         
-        setTimeout(() => resetZona(), 3500);
+        setTimeout(() => resetZona(), 4000);
       }).catch(error => {
-        zonaArrastre.innerHTML = '<strong style="color: red;">Hubo un error. Intenta de nuevo.</strong>';
+        zonaArrastre.innerHTML = '<strong style="color: #d32f2f;">Hubo un error de conexión. Intenta de nuevo.</strong>';
+        setTimeout(() => resetZona(), 4000);
       });
     };
     
@@ -177,17 +251,6 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
   }
 
   function resetZona() {
-    zonaArrastre.innerHTML = '<strong>Arrastra el material nuevo aquí o haz clic para buscarlo</strong><br><span style="font-size: 0.9em; color: #666;">(Llena todos los datos arriba primero)</span>';
+    zonaArrastre.innerHTML = '<svg class="icono-subida" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg><br><strong>Arrastra el material nuevo aquí o haz clic para buscarlo</strong><br><span style="font-size: 0.9em; color: #666;">(Llena todos los datos arriba primero)</span>';
   }
 </script>
-
-
-
-
-
-
-
-
-
-
-
