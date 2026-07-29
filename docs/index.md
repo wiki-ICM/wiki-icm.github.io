@@ -71,7 +71,7 @@
 </style>
 
 <div class="bienvenida-icm">
-  Bienvenido a <strong>Wiki-ICM</strong>, un proyecto que busca recopilar apuntes, listados y material de la carrera <strong>Ingeniería Civil Matemática UdeC</strong>.
+  Bienvenido a <strong>Wiki-ICM</strong>, un proyecto que busca recopilar material de estudio de la carrera <strong>Ingeniería Civil Matemática</strong>.
 </div>
 
 <!--
