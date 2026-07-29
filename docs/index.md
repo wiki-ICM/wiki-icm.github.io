@@ -69,11 +69,12 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
   const ramosPorAno = {
     "1er Año": ["Calculo I","Calculo II","Algebra I","Algebra II","Fisica I","Fisica II","Quimica I","Quimica II","TRM I","Introduccion a la Innovacion"],
     "2do Año": ["Algebra III","Calculo III","Calculo IV","EDO","Programacion","ED2","Termodinamica"],
-    "3er Año": ["CÁLCULO III", "ÁLGEBRA ABSTRACTA", "PROBABILIDADES", "ANÁLISIS NUMÉRICO"],
-    "4to Año": ["GEOMETRÍA ALGEBRAICA", "ANÁLISIS REAL", "OPTIMIZACIÓN"],
-    "5to Año": ["TEORÍA DE GALOIS", "ANÁLISIS COMPLEJO", "TEORÍA DE NÚMEROS"],
-    "6to Año": ["PROYECTO DE TÍTULO", "ELECTIVO I", "ELECTIVO II"],
-    "Otro": ["MATERIAL GENERAL", "TALLERES", "OTROS"]
+    "3er Año": ["Analisis Real I", "Optimiazacion I","Probabilidades","Mecanica de Fluidos","Analisis Numerico II","Analisis Real II","Electromagnetismo","Mecanica de Materiales","Optimizacion II","Inferencia Estadistica"],
+    "4to Año": ["Analisis Funcional I","Analisis Numerico III","Regresion","Algebra IV","Formulacion y Evaluacion de Proyectos","Transferencia de Calor","Taller II"],
+    "5to Año": ["Elementos Finitos","Procesos Estocasticos","Optimizacion III","Sistemas de Computacion","Principios de Ingeneria de Software","Taller III"],
+    "6to Año": ["Sistemas Lineales Dinamicos","Introduccion aCiencias Ambientales","Gestion de Empresas"],
+    "Electivos": ["Numerico","Discreta","Opti","Estadistica"],
+    "Otros": ["Ramos LM","Ramos INF","Extra"]
   };
 
   // Evento que actualiza la lista de ramos cuando cambian el año
@@ -158,7 +159,7 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
         body: formData,
         mode: 'no-cors'
       }).then(() => {
-        zonaArrastre.innerHTML = '<strong style="color: green;">¡Archivo subido.</strong>';
+        zonaArrastre.innerHTML = '<strong style="color: green;">Archivo subido.</strong>';
         
         // Reseteamos todo para el siguiente archivo
         selectAno.value = ''; 
