@@ -1273,24 +1273,6 @@
   Bienvenido a <strong>Wiki-ICM</strong>, un proyecto que busca recopilar material de estudio de la carrera <strong>Ingeniería Civil Matemática</strong>.
 </div>
 
-<!--
----
-
-## 📂 Contenido
-
-Los recursos están organizados siguiendo la malla curricular de la carrera:
-
-* :material-school: **Malla Ingeniería Civil Matemática:** Apuntes, guías, certámenes pasados y libros  🛠 
-* :material-plus-box: **Recursos Adicionales:** Otros ramos electivos o de otras carreras relacionadas.
-## 🤝 ¿Cómo puedo ser parte?
-
-Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/drive/folders/1DJBW6QvXpCti3Z_lFaO2_y4eFNrsqQ3G?usp=sharing), si tienes sugerencias o quieres ser parte del equipo de trabajo, puedes contactarnos a:
-
-* :material-email: [jjunemann2024@udec.cl](mailto:jjunemann2024@udec.cl)
-* :material-email: [bsandoval2018@udec.cl](mailto:bsandoval2018@udec.cl)
-* :material-email: [pnahuelquin2024@udec.cl](mailto:pnahuelquin2024@udec.cl)
-* :material-email: [femunoz2022@udec.cl](mailto:femunoz2022@udec.cl) -->
-
 <h2 id="aportes">Aportes</h2>
 <div class="form-aportes">
   <div class="campo-aporte">
@@ -1308,7 +1290,6 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
     </select>
   </div>
 
-  <!-- Ramo o Área ahora va primero -->
   <div class="campo-aporte">
     <label for="select-ramo">Ramo / Área:</label>
     <select id="select-ramo" disabled>
@@ -1316,7 +1297,7 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
     </select>
   </div>
 
-  <!-- Se despliega después de elegir Área (y se oculta si es Libre) -->
+  <!-- Desplegable Obligatorio / Opcional -->
   <div class="campo-aporte" id="container-tipo-electivo" style="display: none;">
     <label for="select-tipo-electivo">Tipo de Electivo:</label>
     <select id="select-tipo-electivo">
@@ -1326,10 +1307,10 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
     </select>
   </div>
 
-  <!-- Se despliega para escribir el nombre de cualquier electivo u Otro -->
+  <!-- Campo para ingresar nombre libre -->
   <div class="campo-aporte" id="container-nombre-ramo" style="display: none;">
     <label for="input-nombre-ramo">Nombre del Ramo:</label>
-    <input type="text" id="input-nombre-ramo" placeholder="Ej: Machine Learning">
+    <input type="text" id="input-nombre-ramo" placeholder="Ej: Elementos Finitos">
   </div>
 
   <div class="campo-aporte">
@@ -1363,43 +1344,42 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
   const ramosPorAno = {
     "1er Año": ["Calculo I","Calculo II","Algebra I","Algebra II","Fisica I","Fisica II","Quimica I","Quimica II","TRM I","Introduccion a la Innovacion"],
     "2do Año": ["Algebra III","Calculo III","Calculo IV","EDO","Programacion","ED2","Termodinamica"],
-    "3er Año": ["Analisis Real I", "Optimiazacion I","Probabilidades","Mecanica de Fluidos","Analisis Numerico II","Analisis Real II","Electromagnetismo","Mecanica de Materiales","Optimizacion II","Inferencia Estadistica"],
+    "3er Año": ["Analisis Real I", "Optimizacion I","Probabilidades","Mecanica de Fluidos","Analisis Numerico II","Analisis Real II","Electromagnetismo","Mecanica de Materiales","Optimizacion II","Inferencia Estadistica"],
     "4to Año": ["Analisis Funcional I","Analisis Numerico III","Regresion","Algebra IV","Formulacion y Evaluacion de Proyectos","Transferencia de Calor","Taller II"],
     "5to Año": ["Elementos Finitos","Procesos Estocasticos","Optimizacion III","Sistemas de Computacion","Principios de Ingeneria de Software","Taller III"],
-    "6to Año": ["Sistemas Lineales Dinamicos","Introduccion aCiencias Ambientales","Gestion de Empresas"],
-    "Electivos": ["Numerico","Discreta","Optimizacion","Estadistica","Libre"],
+    "6to Año": ["Sistemas Lineales Dinamicos","Introduccion a Ciencias Ambientales","Gestion de Empresas"],
+    "Electivos": ["Numerico","Discreta","Opti","Estadistica","Libre"],
     "Otros": ["Licenciatura en Matematicas","Informatica","Extra"]
   };
 
-  // Función para estandarizar textos (eliminar tildes, quitar espacios múltiples y capitalizar)
+  // Función para normalizar texto (quita tildes, limpia espacios repetidos y capitaliza cada palabra)
   function normalizarTexto(texto) {
     return texto.trim()
                 .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "") // Remueve tildes
-                .replace(/\s+/g, " ")            // Normaliza espacios
+                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/\s+/g, " ")
                 .toLowerCase()
-                .replace(/\b\w/g, l => l.toUpperCase()); // Mayúscula inicial por palabra
+                .replace(/\b\w/g, l => l.toUpperCase());
   }
 
-  // Función que controla qué campos adicionales se muestran según el Año y Área seleccionados
   function actualizarVisibilidadCampos() {
     const ano = selectAno.value;
     const ramo = selectRamo.value;
 
-    // Tipo de Electivo (Obligatorio/Opcional) se muestra si es Electivo, ya eligió un área, y NO es Libre
+    // Obligatorio u Opcional solo si es Electivos y NO es "Libre"
     if (ano === "Electivos" && ramo !== "" && ramo !== "Libre") {
       containerTipoElectivo.style.display = 'flex';
     } else {
       containerTipoElectivo.style.display = 'none';
-      selectTipoElectivo.value = ''; // Limpiar
+      selectTipoElectivo.value = '';
     }
 
-    // Nombre del Ramo de ingreso manual: se muestra para CUALQUIER electivo y para OTROS (si ya eligieron Área)
+    // Nombre de ramo libre para Electivos u Otros
     if ((ano === "Electivos" && ramo !== "") || (ano === "Otros" && ramo !== "")) {
       containerNombreRamo.style.display = 'flex';
     } else {
       containerNombreRamo.style.display = 'none';
-      inputNombreRamo.value = ''; // Limpiar
+      inputNombreRamo.value = '';
     }
   }
 
@@ -1448,20 +1428,20 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
 
   function procesarArchivo(file) {
     const anoMatValue = parseInt(inputAnoMaterial.value);
+    const anoSeleccionado = selectAno.value;
+    const ramoSeleccionado = selectRamo.value;
 
-    // Validación de campos básicos
-    if (!selectAno.value || !selectRamo.value || !inputAnoMaterial.value) {
+    // Validaciones
+    if (!anoSeleccionado || !ramoSeleccionado || !inputAnoMaterial.value) {
       mostrarError('Faltan datos por llenar.');
       return;
     }
 
-    // Validación si se muestra el campo "Obligatorio u Opcional"
     if (containerTipoElectivo.style.display === 'flex' && !selectTipoElectivo.value) {
-      mostrarError('Falta seleccionar si el electivo es Obligatorio u Opcional.');
+      mostrarError('Falta indicar si es Obligatorio u Opcional.');
       return;
     }
 
-    // Validación si se muestra el campo "Nombre del Ramo" manual
     if (containerNombreRamo.style.display === 'flex' && !inputNombreRamo.value.trim()) {
       mostrarError('Falta ingresar el nombre del ramo.');
       return;
@@ -1472,10 +1452,25 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
       return;
     }
 
-    // Preparar el nombre final del ramo (Normalizado si fue ingreso manual)
-    let ramoFinal = selectRamo.value;
-    if (containerNombreRamo.style.display === 'flex') {
-      ramoFinal = normalizarTexto(inputNombreRamo.value);
+    // --- CONSTRUCCIÓN DINÁMICA DE LA RUTA ---
+    let partesRuta = [anoSeleccionado];
+
+    if (anoSeleccionado === "Electivos") {
+      partesRuta.push(ramoSeleccionado); // Ej: "Numerico" o "Libre"
+
+      if (ramoSeleccionado !== "Libre") {
+        partesRuta.push(selectTipoElectivo.value); // Ej: "Obligatorio"
+      }
+
+      partesRuta.push(normalizarTexto(inputNombreRamo.value)); // Ej: "Elementos Finitos"
+
+    } else if (anoSeleccionado === "Otros") {
+      partesRuta.push(ramoSeleccionado); // Ej: "Informatica"
+      partesRuta.push(normalizarTexto(inputNombreRamo.value)); // Ej: "Sistemas Operativos"
+
+    } else {
+      // 1er a 6to Año: Ruta estándar -> [Año, Ramo]
+      partesRuta.push(ramoSeleccionado);
     }
 
     zonaArrastre.innerHTML = '<svg class="icono-subida" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg><br><strong>Subiendo archivo...</strong>';
@@ -1488,16 +1483,9 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
       formData.append('fileName', file.name);
       formData.append('mimeType', file.type);
       formData.append('fileData', base64Data);
-      formData.append('ano', selectAno.value);
 
-      // Enviamos el ramo estandarizado (si lo introdujo manualmente, irá estandarizado)
-      formData.append('ramo', ramoFinal); 
-
-      // Enviamos también el área (ej. "Numerico", "Libre") por si necesitas el dato base en tu Apps Script
-      formData.append('areaElectivo', selectRamo.value); 
-
-      // Enviamos el tipo de electivo si corresponde, de lo contrario enviamos vacío
-      formData.append('tipoElectivo', selectTipoElectivo.value || ""); 
+      // Enviamos la ruta completa en formato JSON para que Apps Script la cree nivel por nivel
+      formData.append('rutaCarpetas', JSON.stringify(partesRuta));
       formData.append('anoMaterial', anoMatValue.toString());
 
       const scriptURL = 'https://script.google.com/macros/s/AKfycbysVOvQhQe6XaAUCVJXImhsEdQlHfxOcZyj127yYlxI_vMX4MKCEsiNLNf79HawwZ6eNg/exec';
@@ -1509,7 +1497,6 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
       }).then(() => {
         zonaArrastre.innerHTML = '<svg class="icono-subida" style="color: #388e3c;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><br><strong style="color: #388e3c;">¡Archivo subido exitosamente!</strong>';
 
-        // Reset de Formulario
         selectAno.value = ''; 
         selectRamo.innerHTML = '<option value="">Primero elige un año...</option>';
         selectRamo.disabled = true;
