@@ -85,8 +85,6 @@ Los recursos están organizados siguiendo la malla curricular de la carrera:
 * :material-plus-box: **Recursos Adicionales:** Otros ramos electivos o de otras carreras relacionadas.
 ## 🤝 ¿Cómo puedo ser parte?
 
-
-
 Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/drive/folders/1DJBW6QvXpCti3Z_lFaO2_y4eFNrsqQ3G?usp=sharing), si tienes sugerencias o quieres ser parte del equipo de trabajo, puedes contactarnos a:
 
 * :material-email: [jjunemann2024@udec.cl](mailto:jjunemann2024@udec.cl)
@@ -112,11 +110,25 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
     </select>
   </div>
 
+  <div class="campo-aporte" id="container-tipo-electivo" style="display: none;">
+    <label for="select-tipo-electivo">Tipo de Electivo:</label>
+    <select id="select-tipo-electivo">
+      <option value="">Selecciona...</option>
+      <option value="Obligatorio">Obligatorio</option>
+      <option value="Opcional">Opcional</option>
+    </select>
+  </div>
+
   <div class="campo-aporte">
-    <label for="select-ramo">Ramo:</label>
+    <label for="select-ramo">Ramo / Área:</label>
     <select id="select-ramo" disabled>
       <option value="">Primero elige un año...</option>
     </select>
+  </div>
+
+  <div class="campo-aporte" id="container-nombre-ramo" style="display: none;">
+    <label for="input-nombre-ramo">Nombre del Ramo:</label>
+    <input type="text" id="input-nombre-ramo" placeholder="Ej: Machine Learning">
   </div>
 
   <div class="campo-aporte">
@@ -126,7 +138,6 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
 </div>
 
 <div id="zona-arrastre" onclick="document.getElementById('input-archivo').click();">
-  <!-- Ícono de subida en formato SVG para que cargue rapidísimo -->
   <svg class="icono-subida" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg><br>
   <strong>Arrastra el material nuevo aquí o haz clic para buscarlo</strong><br>
   <span style="font-size: 0.9em; color: #666;">(Llena todos los datos arriba primero)</span>
@@ -141,7 +152,11 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
   const inputAnoMaterial = document.getElementById('input-ano-material');
   const inputArchivo = document.getElementById('input-archivo');
   
-  // Seteamos el año actual y actualizamos el placeholder para que se vea dinámico
+  const containerTipoElectivo = document.getElementById('container-tipo-electivo');
+  const selectTipoElectivo = document.getElementById('select-tipo-electivo');
+  const containerNombreRamo = document.getElementById('container-nombre-ramo');
+  const inputNombreRamo = document.getElementById('input-nombre-ramo');
+  
   const anoActual = new Date().getFullYear();
   inputAnoMaterial.placeholder = "Ej: " + anoActual;
   
@@ -152,13 +167,43 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
     "4to Año": ["Analisis Funcional I","Analisis Numerico III","Regresion","Algebra IV","Formulacion y Evaluacion de Proyectos","Transferencia de Calor","Taller II"],
     "5to Año": ["Elementos Finitos","Procesos Estocasticos","Optimizacion III","Sistemas de Computacion","Principios de Ingeneria de Software","Taller III"],
     "6to Año": ["Sistemas Lineales Dinamicos","Introduccion aCiencias Ambientales","Gestion de Empresas"],
-    "Electivos": ["Numerico","Discreta","Opti","Estadistica"],
-    "Otros": ["Ramos LM","Ramos INF","Extra"]
+    "Electivos": ["Numerico","Discreta","Opti","Estadistica","Libre"],
+    "Otros": ["Licenciatura en Matematicas","Informatica","Extra"]
   };
+
+  // Función para estandarizar textos (eliminar tildes, quitar espacios múltiples y capitalizar)
+  function normalizarTexto(texto) {
+    return texto.trim()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "") // Remueve tildes
+                .replace(/\s+/g, " ")            // Normaliza espacios
+                .toLowerCase()
+                .replace(/\b\w/g, l => l.toUpperCase()); // Mayúscula inicial por palabra
+  }
+
+  function actualizarVisibilidadCampos() {
+    const ano = selectAno.value;
+    const ramo = selectRamo.value;
+
+    // Mostrar Ocultar Tipo de Electivo
+    if (ano === "Electivos") {
+      containerTipoElectivo.style.display = 'flex';
+    } else {
+      containerTipoElectivo.style.display = 'none';
+      selectTipoElectivo.value = '';
+    }
+
+    // Mostrar Ocultar Nombre del Ramo personalizado
+    if ((ano === "Electivos" && ramo === "Libre") || (ano === "Otros" && ramo !== "")) {
+      containerNombreRamo.style.display = 'flex';
+    } else {
+      containerNombreRamo.style.display = 'none';
+      inputNombreRamo.value = '';
+    }
+  }
 
   selectAno.addEventListener('change', (e) => {
     const anoSeleccionado = e.target.value;
-    
     selectRamo.innerHTML = '<option value="">Selecciona ramo...</option>';
 
     if (anoSeleccionado && ramosPorAno[anoSeleccionado]) {
@@ -173,7 +218,10 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
       selectRamo.disabled = true;
       selectRamo.innerHTML = '<option value="">Primero elige un año...</option>';
     }
+    actualizarVisibilidadCampos();
   });
+
+  selectRamo.addEventListener('change', actualizarVisibilidadCampos);
 
   zonaArrastre.addEventListener('dragover', (e) => {
     e.preventDefault();
@@ -199,17 +247,33 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
 
   function procesarArchivo(file) {
     const anoMatValue = parseInt(inputAnoMaterial.value);
-
+    
+    // Validación de campos básicos
     if (!selectAno.value || !selectRamo.value || !inputAnoMaterial.value) {
-      zonaArrastre.innerHTML = '<strong style="color: #d32f2f;">Faltan datos por llenar.</strong>';
-      setTimeout(() => resetZona(), 3500);
+      mostrarError('Faltan datos por llenar.');
+      return;
+    }
+
+    // Validación de campos condicionales
+    if (selectAno.value === "Electivos" && !selectTipoElectivo.value) {
+      mostrarError('Falta seleccionar si el electivo es Obligatorio u Opcional.');
+      return;
+    }
+
+    if (containerNombreRamo.style.display === 'flex' && !inputNombreRamo.value.trim()) {
+      mostrarError('Falta ingresar el nombre del ramo.');
       return;
     }
 
     if (anoMatValue < 2010 || anoMatValue > anoActual) {
-      zonaArrastre.innerHTML = '<strong style="color: #d32f2f;">El año del material debe ser entre 2010 y ' + anoActual + '.</strong>';
-      setTimeout(() => resetZona(), 4000);
+      mostrarError('El año del material debe ser entre 2010 y ' + anoActual + '.');
       return;
+    }
+
+    // Preparar el nombre final del ramo (Normalizado si fue ingreso manual)
+    let ramoFinal = selectRamo.value;
+    if (containerNombreRamo.style.display === 'flex') {
+      ramoFinal = normalizarTexto(inputNombreRamo.value);
     }
 
     zonaArrastre.innerHTML = '<svg class="icono-subida" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg><br><strong>Subiendo archivo...</strong>';
@@ -223,7 +287,10 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
       formData.append('mimeType', file.type);
       formData.append('fileData', base64Data);
       formData.append('ano', selectAno.value);
-      formData.append('ramo', selectRamo.value);
+      formData.append('ramo', ramoFinal); // Ramo estandarizado o de la lista
+      
+      // Enviamos el tipo de electivo si corresponde, de lo contrario enviamos vacío
+      formData.append('tipoElectivo', selectTipoElectivo.value || ""); 
       formData.append('anoMaterial', anoMatValue.toString());
 
       const scriptURL = 'https://script.google.com/macros/s/AKfycbysVOvQhQe6XaAUCVJXImhsEdQlHfxOcZyj127yYlxI_vMX4MKCEsiNLNf79HawwZ6eNg/exec';
@@ -235,19 +302,25 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
       }).then(() => {
         zonaArrastre.innerHTML = '<svg class="icono-subida" style="color: #388e3c;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><br><strong style="color: #388e3c;">¡Archivo subido exitosamente!</strong>';
         
+        // Reset de Formulario
         selectAno.value = ''; 
         selectRamo.innerHTML = '<option value="">Primero elige un año...</option>';
         selectRamo.disabled = true;
         inputAnoMaterial.value = '';
+        actualizarVisibilidadCampos();
         
         setTimeout(() => resetZona(), 4000);
       }).catch(error => {
-        zonaArrastre.innerHTML = '<strong style="color: #d32f2f;">Hubo un error de conexión. Intenta de nuevo.</strong>';
-        setTimeout(() => resetZona(), 4000);
+        mostrarError('Hubo un error de conexión. Intenta de nuevo.');
       });
     };
     
     reader.readAsDataURL(file);
+  }
+
+  function mostrarError(mensaje) {
+    zonaArrastre.innerHTML = '<strong style="color: #d32f2f;">' + mensaje + '</strong>';
+    setTimeout(() => resetZona(), 3500);
   }
 
   function resetZona() {
