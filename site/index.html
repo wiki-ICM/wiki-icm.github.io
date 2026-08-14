@@ -1308,6 +1308,15 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
     </select>
   </div>
 
+  <!-- Ramo o Área ahora va primero -->
+  <div class="campo-aporte">
+    <label for="select-ramo">Ramo / Área:</label>
+    <select id="select-ramo" disabled>
+      <option value="">Primero elige un año...</option>
+    </select>
+  </div>
+
+  <!-- Se despliega después de elegir Área (y se oculta si es Libre) -->
   <div class="campo-aporte" id="container-tipo-electivo" style="display: none;">
     <label for="select-tipo-electivo">Tipo de Electivo:</label>
     <select id="select-tipo-electivo">
@@ -1317,13 +1326,7 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
     </select>
   </div>
 
-  <div class="campo-aporte">
-    <label for="select-ramo">Ramo / Área:</label>
-    <select id="select-ramo" disabled>
-      <option value="">Primero elige un año...</option>
-    </select>
-  </div>
-
+  <!-- Se despliega para escribir el nombre de cualquier electivo u Otro -->
   <div class="campo-aporte" id="container-nombre-ramo" style="display: none;">
     <label for="input-nombre-ramo">Nombre del Ramo:</label>
     <input type="text" id="input-nombre-ramo" placeholder="Ej: Machine Learning">
@@ -1364,7 +1367,7 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
     "4to Año": ["Analisis Funcional I","Analisis Numerico III","Regresion","Algebra IV","Formulacion y Evaluacion de Proyectos","Transferencia de Calor","Taller II"],
     "5to Año": ["Elementos Finitos","Procesos Estocasticos","Optimizacion III","Sistemas de Computacion","Principios de Ingeneria de Software","Taller III"],
     "6to Año": ["Sistemas Lineales Dinamicos","Introduccion aCiencias Ambientales","Gestion de Empresas"],
-    "Electivos": ["Numerico","Discreta","Optimizacion","Estadistica","Libre"],
+    "Electivos": ["Numerico","Discreta","Opti","Estadistica","Libre"],
     "Otros": ["Licenciatura en Matematicas","Informatica","Extra"]
   };
 
@@ -1378,24 +1381,25 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
                 .replace(/\b\w/g, l => l.toUpperCase()); // Mayúscula inicial por palabra
   }
 
+  // Función que controla qué campos adicionales se muestran según el Año y Área seleccionados
   function actualizarVisibilidadCampos() {
     const ano = selectAno.value;
     const ramo = selectRamo.value;
 
-    // Mostrar Ocultar Tipo de Electivo
-    if (ano === "Electivos") {
+    // Tipo de Electivo (Obligatorio/Opcional) se muestra si es Electivo, ya eligió un área, y NO es Libre
+    if (ano === "Electivos" && ramo !== "" && ramo !== "Libre") {
       containerTipoElectivo.style.display = 'flex';
     } else {
       containerTipoElectivo.style.display = 'none';
-      selectTipoElectivo.value = '';
+      selectTipoElectivo.value = ''; // Limpiar
     }
 
-    // Mostrar Ocultar Nombre del Ramo personalizado
-    if ((ano === "Electivos" && ramo === "Libre") || (ano === "Otros" && ramo !== "")) {
+    // Nombre del Ramo de ingreso manual: se muestra para CUALQUIER electivo y para OTROS (si ya eligieron Área)
+    if ((ano === "Electivos" && ramo !== "") || (ano === "Otros" && ramo !== "")) {
       containerNombreRamo.style.display = 'flex';
     } else {
       containerNombreRamo.style.display = 'none';
-      inputNombreRamo.value = '';
+      inputNombreRamo.value = ''; // Limpiar
     }
   }
 
@@ -1451,12 +1455,13 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
       return;
     }
 
-    // Validación de campos condicionales
-    if (selectAno.value === "Electivos" && !selectTipoElectivo.value) {
+    // Validación si se muestra el campo "Obligatorio u Opcional"
+    if (containerTipoElectivo.style.display === 'flex' && !selectTipoElectivo.value) {
       mostrarError('Falta seleccionar si el electivo es Obligatorio u Opcional.');
       return;
     }
 
+    // Validación si se muestra el campo "Nombre del Ramo" manual
     if (containerNombreRamo.style.display === 'flex' && !inputNombreRamo.value.trim()) {
       mostrarError('Falta ingresar el nombre del ramo.');
       return;
@@ -1484,7 +1489,12 @@ Si tienes material para aportar puedes subirlo [aqui](https://drive.google.com/d
       formData.append('mimeType', file.type);
       formData.append('fileData', base64Data);
       formData.append('ano', selectAno.value);
-      formData.append('ramo', ramoFinal); // Ramo estandarizado o de la lista
+
+      // Enviamos el ramo estandarizado (si lo introdujo manualmente, irá estandarizado)
+      formData.append('ramo', ramoFinal); 
+
+      // Enviamos también el área (ej. "Numerico", "Libre") por si necesitas el dato base en tu Apps Script
+      formData.append('areaElectivo', selectRamo.value); 
 
       // Enviamos el tipo de electivo si corresponde, de lo contrario enviamos vacío
       formData.append('tipoElectivo', selectTipoElectivo.value || ""); 
