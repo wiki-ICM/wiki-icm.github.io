@@ -70,4 +70,4 @@ plugins:
         background_color: "#a2b8fc"
         
 extra_css:
-  - stylesheets/extra.css
+  - extra.css
