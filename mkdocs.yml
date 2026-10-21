@@ -32,6 +32,8 @@ nav:
 
 theme: 
   name: material
+  palette:
+    primary: custom
   logo: assets/logof.png
   favicon: assets/logof.png
   features:
@@ -67,3 +69,5 @@ plugins:
       cards_layout_options:
         background_color: "#a2b8fc"
         
+extra_css:
+  - stylesheets/extra.css
