@@ -1,3 +1,74 @@
 :root {
-  --md-primary-fg-color: #124c32; 
+  --md-primary-fg-color: #124c32;
+}
+
+  /* Estilos para embellecer y hacer responsiva la interfaz */
+  .bienvenida-icm {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+    font-size: 1.1em;
+    color: #444;
+  }
+  .form-aportes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 30px;
+  }
+  .campo-aporte {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    min-width: 200px;
+    flex: 1;
+    max-width: 250px;
+  }
+  .campo-aporte label {
+    font-weight: 600;
+    font-size: 0.9em;
+    color: #333;
+    margin-bottom: 6px;
+  }
+  .campo-aporte select, .campo-aporte input {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    background-color: #fff;
+    transition: all 0.3s ease;
+  }
+  .campo-aporte select:focus, .campo-aporte input:focus {
+    border-color: #4051b5;
+    outline: none;
+    box-shadow: 0 0 8px rgba(64, 81, 181, 0.3);
+  }
+  #zona-arrastre {
+    border: 3px dashed #4051b5;
+    border-radius: 12px;
+    padding: 50px 20px;
+    text-align: center;
+    background-color: rgba(64, 81, 181, 0.03);
+    margin: 20px auto;
+    cursor: pointer;
+    max-width: 700px;
+    transition: all 0.3s ease;
+  }
+  #zona-arrastre:hover {
+    background-color: rgba(64, 81, 181, 0.08);
+  }
+  .icono-subida {
+    width: 48px;
+    height: 48px;
+    color: #4051b5;
+    margin-bottom: 10px;
+  }
+
+#zona-arrastre:focus-visible { outline: 3px solid var(--md-accent-fg-color); outline-offset: 4px; }
+#zona-arrastre[aria-disabled="true"] { cursor: wait; opacity: .7; }
+#estado-aporte { min-height: 1.5em; }
+@media (max-width: 600px) {
+  .campo-aporte { max-width: 100%; min-width: 0; width: 100%; }
 }
