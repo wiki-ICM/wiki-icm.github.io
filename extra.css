@@ -1,3 +1,94 @@
 :root {
-  --md-primary-fg-color: #124c32; 
+  --md-primary-fg-color: #124c32;
+  --md-accent-fg-color: #39775a;
+  --md-default-bg-color: #faf9f5;
+  --md-default-fg-color: #283b32;
+  --md-typeset-a-color: #246345;
+}
+.md-header { box-shadow: 0 2px 10px #183d2420; }
+.md-tabs { background: #124c32; }
+.md-typeset { line-height: 1.75; }
+.md-typeset h1, .md-typeset h2, .md-typeset h3 { color: #214733; letter-spacing: -.025em; }
+.md-typeset h1 { font-weight: 700; }
+.md-typeset h2 { margin-top: 2rem; font-weight: 650; }
+.md-typeset hr { border-color: #dce4da; margin: 1.6rem 0; }
+.md-typeset .md-button { border-radius: .4rem; border-width: 1px; margin: .3rem .4rem .3rem 0; font-size: .85em; }
+.md-typeset .md-button--primary { background: #246345; border-color: #246345; color: white; }
+.md-typeset a.course-link { display: flex; align-items: center; gap: .7rem; position: relative; padding: .8rem 1rem; margin: .4rem 0; border: 1px solid #dce4da; border-radius: .4rem; background: #fffefa; color: #294d38; font-weight: 500; line-height: 1.5; }
+.md-typeset a.course-link::after { content: 'Abrir carpeta ↗'; margin-left: auto; padding-left: .5rem; font-size: .75em; color: #617767; white-space: nowrap; }
+.md-typeset a.course-link:hover { background: #edf3eb; border-color: #729981; }
+.course-link .twemoji { flex-shrink: 0; color: #56765e; }
+.md-typeset a:focus-visible { outline: 3px solid #659575; outline-offset: 3px; }
+.md-nav__link--active { font-weight: 700; }
+@media (max-width: 480px) {
+  .md-typeset a.course-link { padding: .75rem; }
+  .md-typeset a.course-link::after { content: '↗'; }
+}
+
+.bienvenida-icm { text-align: center; max-width: 800px; margin: 0 auto 2rem; font-size: 1.1em; }
+.md-typeset img[alt="Logo Wiki-ICM"] { max-width: 100%; height: auto; }
+
+/* Directorio de electivos: un solo índice con accesos por área y tipo. */
+.md-typeset .electives-directory table:not([class]) {
+  display: table;
+  width: 100%;
+  min-width: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  font-size: 1em;
+  line-height: 1.5;
+  border-collapse: separate;
+  border-spacing: 0 .6rem;
+}
+.md-typeset .electives-directory table:not([class]) th,
+.md-typeset .electives-directory table:not([class]) td {
+  padding: 1.1rem .85rem;
+  vertical-align: middle;
+}
+.md-typeset .electives-directory table:not([class]) td {
+  background: #fffefa;
+  border-top: 1px solid #dce4da;
+  border-bottom: 1px solid #dce4da;
+}
+.md-typeset .electives-directory table:not([class]) td:first-child {
+  border-left: 1px solid #dce4da;
+  border-radius: .4rem 0 0 .4rem;
+  color: #294d38;
+  font-weight: 500;
+}
+.md-typeset .electives-directory table:not([class]) td:last-child {
+  border-right: 1px solid #dce4da;
+  border-radius: 0 .4rem .4rem 0;
+}
+.md-typeset .electives-directory table:not([class]) th {
+  color: #57675d;
+  background: transparent;
+  font-weight: 600;
+  padding-top: .4rem;
+  padding-bottom: .4rem;
+  font-size: .85em;
+}
+.md-typeset .electives-directory table:not([class]) td:first-child { width: 46%; }
+.md-typeset .electives-directory table:not([class]) a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.2rem;
+  padding: .45rem .7rem;
+  border: 1px solid #dce4da;
+  border-radius: .4rem;
+  color: #294d38;
+  font-weight: 500;
+}
+.md-typeset .electives-directory table:not([class]) a:hover {
+  background: #edf3eb;
+  border-color: #729981;
+}
+.md-typeset a.elective-index-link::after { content: 'Ver ramos →'; }
+@media (max-width: 480px) {
+  .md-typeset .electives-directory table:not([class]) th,
+  .md-typeset .electives-directory table:not([class]) td { padding: .85rem .35rem; }
+  .md-typeset .electives-directory table:not([class]) a { padding: .4rem .3rem; }
+  .md-typeset a.elective-index-link::after { content: '→'; }
 }
