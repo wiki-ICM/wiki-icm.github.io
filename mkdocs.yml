@@ -1,36 +1,40 @@
 site_name: wiki-ICM
-site_description: Material de estudio para la carrera de Ingeneria Civil Matematica.
+site_description: Material de estudio para la carrera de Ingeniería Civil Matemática.
 site_url: https://wiki-icm.github.io/
 
 
 nav:
-  - Home: index.md
-  - Primer Año :
-      - Malla 2021: a121.md
-      - Malla 2025: a125.md
-  - Segundo Año : a2.md
-  - Tercer Año : a3.md
-  - Cuarto Año : a4.md
-  - Quinto Año : a5.md
-  - Sexto Año : a6.md
-  - Electivos:
-        - Electivos Libres: electivos/libres.md
-        - Electivos Obligatorios:
-            - Analisis Numerico y Ecuaciones Diferenciales: electivos/obligatorios/num.md
-            - Matematicas Discretas: electivos/obligatorios/discreta.md
-            - Estadistica y Procesos Estocasticos: electivos/obligatorios/estadistica.md
-            - Optimizacion y Control: electivos/obligatorios/opti.md
+  - Inicio: index.md
+  - Material de estudio:
+      - Índice: material.md
+      - Primer Año :
+          - Malla 2021: a121.md
+          - Malla 2025: a125.md
+      - Segundo Año : a2.md
+      - Tercer Año : a3.md
+      - Cuarto Año : a4.md
+      - Quinto Año : a5.md
+      - Sexto Año : a6.md
+      - Electivos:
+            - Electivos Libres: electivos/libres.md
+            - Electivos Obligatorios:
+                - Analisis Numerico y Ecuaciones Diferenciales: electivos/obligatorios/num.md
+                - Matematicas Discretas: electivos/obligatorios/discreta.md
+                - Estadistica y Procesos Estocasticos: electivos/obligatorios/estadistica.md
+                - Optimizacion y Control: electivos/obligatorios/opti.md
 
-        - Electivos Opcionales:
-            - Analisis Numerico y Ecuaciones Diferenciales: electivos/opcionales/num.md
-            - Matematicas Discretas: electivos/opcionales/discreta.md
-            - Estadistica y Procesos Estocasticos: electivos/opcionales/estadistica.md
-            - Optimizacion y Control: electivos/opcionales/opti.md
+            - Electivos Opcionales:
+                - Analisis Numerico y Ecuaciones Diferenciales: electivos/opcionales/num.md
+                - Matematicas Discretas: electivos/opcionales/discreta.md
+                - Estadistica y Procesos Estocasticos: electivos/opcionales/estadistica.md
+                - Optimizacion y Control: electivos/opcionales/opti.md
 
-  - Otros: ot.md
-  
+      - Otros: ot.md
+  - Aportar material: aportes.md
 
-theme: 
+
+
+theme:
   name: material
   palette:
     primary: custom
@@ -51,7 +55,7 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
-  - pymdownx.emoji:      
+  - pymdownx.emoji:
         emoji_index: !!python/name:material.extensions.emoji.twemoji
         emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
@@ -68,6 +72,9 @@ plugins:
   - social:
       cards_layout_options:
         background_color: "#a2b8fc"
-        
+
 extra_css:
   - extra.css
+
+extra_javascript:
+  - javascripts/aportes.js
